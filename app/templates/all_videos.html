@@ -1,0 +1,85 @@
+{% load youtube_extras %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Videos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.5.1/nouislider.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'app/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'app/css/sidebar.css' %}">
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h1>EpicLang</h1>
+        <div class="language-display">
+            Language: {{ selected_language|default:"N/A" }}
+        </div>
+        <a href="{% url 'all_videos' %}">Videos</a>
+        {% if user.is_authenticated %}
+        <a href="{% url 'watch' %}">Watch</a>
+        <a href="{% url 'learn' %}">Learn</a>
+        <a href="{% url 'review' %}">Review</a>
+        <a href="{% url 'account' %}">Account</a>
+        {% endif %}
+        {% if user.is_authenticated %}
+            <form action="{% url 'logout' %}" method="POST" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit">Log Out</button>
+            </form>
+        {% else %}
+            <a href="{% url 'login' %}">Log In</a>
+        {% endif %}
+
+        {% if user.is_authenticated %}
+        <!-- Slider and Filter Button -->
+        <form id="filter-form">
+            <!-- noUiSlider container -->
+            <div id="range-slider" style="margin-bottom: 20px;"></div>
+            
+            <!-- Hidden fields to store selected min and max values for submission -->
+            <input type="hidden" name="min_comprehension" id="min-comprehension" value="{{ min_comprehension|default:0 }}">
+            <input type="hidden" name="max_comprehension" id="max-comprehension" value="{{ max_comprehension|default:100 }}">
+            
+            <button type="submit">Apply Filter</button>
+        </form>
+        {% endif %}
+    </div>
+
+    <!-- Main Content -->
+    <div class="content">
+        <div class="video-grid" id="video-grid">
+            {% for video in videos %}
+            <div class="video-item">
+                <a href="{% url 'video_detail' video.pk %}">
+                    <div class="thumbnail-wrapper">
+                        <img src="https://img.youtube.com/vi/{{ video.url|youtube_id }}/hqdefault.jpg" alt="{{ video.title }}">
+                    </div>
+                </a>
+                <div class="video-info">
+                    <div class="percentage" style="background-color: white;">
+                        {{ video.comprehension_percentage|floatformat:0 }} <!-- Only the number -->
+                    </div>
+                    <div class="title">
+                        <a href="{% url 'video_detail' video.pk %}" style="color: black; text-decoration: none;">{{ video.title|title }}</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <script>
+        var allVideosUrl = "{% url 'all_videos' %}";
+        var updateComprehensionUrl = "{% url 'update_comprehension_filter' %}";
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.5.1/nouislider.min.js"></script>
+    <script src="{% static 'app/js/videos.js' %}"></script>
+
+</body>
+</html>

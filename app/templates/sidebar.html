@@ -1,0 +1,19 @@
+<div class="sidebar">
+    <h1>EpicLang</h1>
+    <div class="language-display">
+        Language: {{ user.userpreferences.language|default:"N/A" }}
+    </div>
+    <a href="{% url 'all_videos' %}">Videos</a>
+    <a href="{% url 'watch' %}">Watch</a>
+    <a href="{% url 'learn' %}">Learn</a>
+    <a href="{% url 'review' %}">Review</a>
+    <a href="{% url 'account' %}">Account</a>
+    {% if user.is_authenticated %}
+        <form action="{% url 'logout' %}" method="POST" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit">Log Out</button>
+        </form>
+    {% else %}
+        <a href="{% url 'login' %}">Log In</a>
+    {% endif %}
+</div>

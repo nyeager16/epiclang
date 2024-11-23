@@ -1,0 +1,54 @@
+/* Sidebar styling */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 200px;
+    height: 100%;
+    background-color: #333;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.sidebar h1 {
+    color: white;
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Sidebar link and button styling */
+.sidebar a, .sidebar button {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    display: block;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    width: 100%; /* Ensure full width */
+    text-align: left; /* Align left */
+    box-sizing: border-box;
+}
+
+.sidebar a:hover, .sidebar button:hover {
+    background-color: #444;
+}
+
+.sidebar button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+/* Language display */
+.language-display {
+    color: white;
+    font-size: 16px;
+    margin: 10px 0;
+    padding: 10px;
+    background-color: #444;
+    border-radius: 5px;
+    text-align: center;
+}

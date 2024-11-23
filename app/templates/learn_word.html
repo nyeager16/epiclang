@@ -1,0 +1,47 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn {{ word }}</title>
+    <link rel="stylesheet" href="{% static 'app/css/learn_word.css' %}">
+    <link rel="stylesheet" href="{% static 'app/css/sidebar.css' %}">
+
+</head>
+<body>
+
+    {% block sidebar %}
+    {% include 'sidebar.html' %}
+    {% endblock %}
+
+    <!-- Main Content -->
+    <div class="content">
+
+        <iframe id="player" width="560" height="315"
+                src="https://www.youtube.com/embed/{{ video_data.url }}?enablejsapi=1"
+                frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+        <!-- Navigation controls for timestamps -->
+        <div class="navigation-controls">
+            <button class="nav-button" onclick="previousTimestamp()">⬅</button>
+            <button class="nav-button" onclick="skipToCurrent()">Skip to "{{ currentWord }}"</button>
+            <button class="nav-button" onclick="nextTimestamp()">➡</button>
+        </div>
+    </div>
+
+    <!-- YouTube API Script -->
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script>
+        var timestamps = [
+            {% for item in words %}
+                { time: {{ item.start }}, word: "{{ item.word }}" },
+            {% endfor %}
+        ];
+    </script>
+    <script src="{% static 'app/js/learn_word.js' %}"></script>
+
+
+</body>
+</html>

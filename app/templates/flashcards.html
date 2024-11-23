@@ -1,0 +1,45 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Flashcards</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'app/css/flashcards.css' %}">
+    <link rel="stylesheet" href="{% static 'app/css/sidebar.css' %}">
+</head>
+<body>
+
+    {% block sidebar %}
+    {% include 'sidebar.html' %}
+    {% endblock %}
+
+    <div class="container">
+        <div class="flashcard-list">
+            <ul id="wordList">
+                {% for word in words %}
+                    <li class="flashcard-item" data-id="{{ word.id }}" data-definition="{{ word.definition_text }}">
+                        <div class="flashcard-column word-column">{{ word.word_text }}</div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="flashcard-detail">
+            <h2>Edit Flashcard</h2>
+            <form id="editFlashcardForm" method="POST" action="javascript:void(0);">
+                {% csrf_token %}
+                <input type="hidden" name="word_id" id="wordId">
+                <textarea name="definition_text" id="definitionText" rows="4" placeholder="Edit definition..." required></textarea>
+                <div class="button-container">
+                    <button type="submit" id="saveButton">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="{% static 'app/js/flashcards.js' %}"></script>
+
+</body>
+</html>

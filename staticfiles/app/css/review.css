@@ -1,0 +1,92 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #fff;
+    overflow: hidden;
+}
+
+/* Content area styling */
+.content {
+    max-width: 600px;      /* Set a maximum width for the content */
+    margin: 0 auto;        /* Center the content block horizontally */
+    display: flex;         /* Enable flexbox */
+    flex-direction: column; /* Stack children vertically */
+    justify-content: center; /* Center vertically */
+    align-items: center;   /* Center horizontally */
+    text-align: center;    /* Center text inside the content */
+}
+
+/* Center content */
+.container {
+    margin-left: 220px; /* Offset for the sidebar */
+    padding: 20px;
+    position: relative; 
+    height: 100vh; /* Full viewport height */
+    display: flex; /* Use flexbox */
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
+}
+
+.word-display {
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.answer {
+    font-size: 24px;
+    margin-bottom: 20px;
+    display: none; /* Initially hidden */
+}
+
+.show-answer-btn, .rating-btn {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px;
+    transition: background-color 0.3s;
+}
+
+.show-answer-btn:hover, .rating-btn:hover {
+    background-color: #444;
+}
+
+.delete-btn {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px;
+    transition: background-color 0.3s;
+}
+
+.delete-btn:hover {
+    background-color: #444;
+}
+
+.edit-flashcard-link {
+    text-decoration: none; /* Remove underline */
+}
+
+.button-container {
+    position: absolute; /* Position absolutely within the content */
+    bottom: 100px;
+    display: flex; /* Use flexbox for positioning */
+    justify-content: space-between; /* Space buttons to the left and right */
+    width: 50%; /* Full width */
+    margin-top: auto; /* Push to the bottom of the content */
+    padding: 10px 0; /* Add some padding */
+}
+
+.ratings-container {
+    display: none; /* Initially hidden */
+    margin-top: 20px;
+}

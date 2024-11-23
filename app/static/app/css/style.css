@@ -1,0 +1,252 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #fff; /* White background */
+}
+
+.video-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Default: 3 videos per row */
+    gap: 20px;
+}
+
+.video-item {
+    background-color: white;
+    padding: 10px;
+    border-radius: 8px;
+    border: none; /* Remove border from the video item */
+}
+
+.thumbnail-wrapper {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+    background-color: #000;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 10px; /* Add more spacing between thumbnail and title */
+}
+
+.thumbnail-wrapper img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.video-info {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Align items to the start */
+    margin-top: 10px;
+}
+
+.percentage {
+    width: 40px; /* Fixed width for circle */
+    height: 40px; /* Fixed height for circle */
+    min-width: 40px; /* Prevent shrinking */
+    min-height: 40px; /* Prevent shrinking */
+    border-radius: 50%; /* Make it circular */
+    border: 2px solid black; /* Black border */
+    display: flex; /* Use flexbox to center text */
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+    margin-right: 10px; /* Spacing between percentage and title */
+    box-sizing: border-box; /* Include border in width and height */
+    flex: 0 0 auto; /* Prevent growing and shrinking */
+    background-color: white; /* Set background color to white */
+}
+
+.title {
+    font-size: 16px;
+    color: #333;
+    text-align: left; /* Align title to the left */
+    flex-grow: 1;
+    overflow: hidden; /* Hide overflow */
+    text-overflow: ellipsis; /* Show ellipsis when overflow */
+    display: -webkit-box; /* Use flexbox model */
+    -webkit-box-orient: vertical; /* Vertical orientation for box */
+    -webkit-line-clamp: 2; /* Limit to 2 lines */
+}
+
+.noUi-handle::before,
+.noUi-handle::after {
+    display: none !important; /* Hide any pseudo-elements like ::before and ::after */
+}
+
+/* Slider handle styling */
+.noUi-handle {
+    background-color: #009688; /* Purple handle (or any modern color) */
+    width: 18px; /* Small but visible handle width */
+    height: 18px; /* Slightly taller than wide for a clean circular look */
+    border-radius: 50%; /* Fully rounded for a sleek, minimalist design */
+    box-shadow: none; /* No shadow for a flat design */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth color and scale transitions */
+}
+
+.noUi-connect {
+    background-color: #009688; /* Purple active track */
+    height: 6px;
+}
+
+.noUi-base {
+    background-color: #ddd; /* Light gray base */
+    height: 6px;
+    border-radius: 4px;
+}
+
+.noUi-tooltip {
+    background-color: #009688;
+    color: white;
+    padding: 5px;
+    border-radius: 4px;
+    font-size: 13px;
+}
+
+/* Responsive Styles */
+@media (max-width: 1200px) { /* Medium screens */
+    .video-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 videos per row */
+    }
+}
+
+@media (max-width: 800px) { /* Small screens */
+    .video-grid {
+        grid-template-columns: 1fr; /* 1 video per row */
+    }
+
+    .video-info {
+        flex-direction: row; /* Keep in row layout */
+        align-items: center; /* Center align */
+    }
+
+    .title {
+        text-align: left; /* Align text to the left */
+        margin-left: 0;
+    }
+}
+
+.content {
+    margin-left: 200px; /* Offset for the sidebar */
+    padding: 20px;
+}
+
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: none;
+}
+
+#learn-button {
+    text-decoration: none;
+}
+
+h1 {
+    font-size: 20px;
+    margin: 15px 0;
+    font-family: 'Arial', sans-serif;
+}
+
+iframe {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    border-radius: 8px;
+}
+
+.video-title {
+    font-size: 22px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+}
+
+.section-divider {
+    border: none;
+    border-top: 1px solid #ccc;
+    margin: 20px 0;
+}
+
+.new-words {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.new-words h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.word {
+    display: inline-block;
+    background-color: #e0f7fa;
+    color: #00695c;
+    padding: 8px 12px;
+    margin: 5px;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.word.selected {
+    background-color: #a5d6a7;
+}
+
+.child-words {
+    display: none;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.child-word {
+    display: inline-block;
+    background-color: #ffe0b2;
+    color: #e65100;
+    padding: 5px 10px;
+    margin: 5px;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+/* Buttons styling */
+.buttons-container {
+    display: flex;
+    justify-content: center; /* Center buttons horizontally */
+    gap: 20px; /* Space between the buttons */
+    margin-top: 30px;
+}
+
+.action-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.action-button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+.action-button:active {
+    transform: scale(0.95);
+}
+
+
+
+
+
+
+

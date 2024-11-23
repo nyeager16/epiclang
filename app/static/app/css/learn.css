@@ -1,0 +1,54 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: Arial, sans-serif;
+    scroll-behavior: smooth;
+    overflow: hidden;
+}
+
+/* Main content area */
+.word-sections {
+    margin-left: 200px;
+    padding-top: 20px;
+}
+
+.word-section {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: white;
+    padding: 20px;
+}
+
+.word-section span {
+    font-size: 48px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.word-section button {
+    padding: 10px 20px;
+    font-size: 18px;
+    color: white;
+    background-color: #007BFF;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-bottom: 10px;
+}
+
+.word-section button.learn-button {
+    background-color: #28a745;
+}
+
+.word-section button:hover {
+    background-color: #0056b3;
+}
+
+.word-section button.learn-button:hover {
+    background-color: #218838;
+}

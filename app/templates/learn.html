@@ -1,0 +1,50 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn</title>
+    <link rel="stylesheet" href="{% static 'app/css/learn.css' %}">
+    <link rel="stylesheet" href="{% static 'app/css/sidebar.css' %}">
+
+</head>
+<body>
+
+    {% block sidebar %}
+    {% include 'sidebar.html' %}
+    {% endblock %}
+
+    <!-- Learn Content -->
+    <div class="word-sections">
+        {% if new_words %}
+            {% for word in new_words %}
+                <div class="word-section" id="section-{{ forloop.counter }}">
+                    <!-- Display the word at the top -->
+                    <span>{{ word.root_word }}</span>
+                    
+                    <!-- 'I know this' button -->
+                    <form method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="word_id" value="{{ word.root_word }}">
+                        <button type="submit">I know this</button>
+                    </form>
+
+                    <!-- 'Learn' button redirects to learn/{word} -->
+                    <button class="learn-button" onclick="window.location.href='{% url 'learn_word' word.root_word %}'">
+                        Learn
+                    </button>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="container">
+                <p>No new words available.</p>
+            </div>
+        {% endif %}
+    </div>
+
+    <script src="{% static 'app/js/learn.js' %}"></script>
+
+</body>
+</html>

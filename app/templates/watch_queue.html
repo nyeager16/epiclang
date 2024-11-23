@@ -1,0 +1,51 @@
+{% load youtube_extras %}
+{% load custom_filters %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Queue</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'app/css/sidebar.css' %}">
+    <link rel="stylesheet" href="{% static 'app/css/watch_queue.css' %}">
+
+</head>
+<body>
+    {% block sidebar %}
+    {% include 'sidebar.html' %}
+    {% endblock %}
+    <div class="content">
+        <div class="container">
+            <iframe src="https://www.youtube.com/embed/{{ video.url|youtube_id }}?start={{ video.start }}&end={{ video.end }}" 
+                    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+            </iframe>
+        </div>
+
+        <!-- Buttons -->
+        <div class="action-buttons">
+            <!-- Form for "I've Watched This" -->
+            <form method="post" action="">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="watched">
+                <input type="hidden" name="video_id" value="{{ video.id }}">
+                <button type="submit">I've Watched This</button>
+            </form>
+
+            <!-- Form for "Next in Queue" -->
+            <form method="post" action="">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="next">
+                <input type="hidden" name="video_id" value="{{ video.id }}">
+                <input type="hidden" name="start" value="{{ video.start }}">
+                <input type="hidden" name="end" value="{{ video.end }}">
+                <button type="submit">Next in Queue</button>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>
+    
