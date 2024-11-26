@@ -1,7 +1,7 @@
 
-# EpicLang
+# InputQuest
 
-EpicLang is a Django-based web application designed to enhance language learning using the **comprehensible input** methodology. It currently supports **Polish** and aims to make language acquisition efficient and engaging through personalized video content, vocabulary tracking, and integrated flashcard reviews.
+InputQuest is a Django-based web application designed to enhance language learning using the **comprehensible input** methodology. It currently supports **Polish** and aims to make language acquisition efficient and engaging through personalized video content, vocabulary tracking, and integrated flashcard reviews.
 
 ---
 
@@ -48,11 +48,11 @@ EpicLang is a Django-based web application designed to enhance language learning
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/epiclang.git
+   git clone https://github.com/nyeager16/InputQuest
    ```
 2. Navigate to the project directory:
    ```bash
-   cd epiclang
+   cd InputQuest
    ```
 3. Install dependencies using Poetry:
    ```bash
@@ -63,8 +63,9 @@ EpicLang is a Django-based web application designed to enhance language learning
    python manage.py migrate
    ```
 5. Download the Dictionary:
-  Download the "Dictionary (SGJP)" from the following link: http://morfeusz.sgjp.pl/download/en
-  Place the downloaded dictioary file in the data folder of the project directory
+
+    Download the "Dictionary (SGJP)" from the following link: [SGJP](http://morfeusz.sgjp.pl/download/en)
+    Place the downloaded dictionary file in the `data` folder of the project directory
 6. Import the dictionary data:
    ```bash
    python manage.py tabimport "[filepath]"

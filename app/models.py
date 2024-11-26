@@ -109,3 +109,4 @@ class UserWord(models.Model):
 
     def __str__(self):
         return f"{self.user.username} - {self.word.word_text}"
+

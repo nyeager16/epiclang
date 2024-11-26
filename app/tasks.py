@@ -35,20 +35,3 @@ def calculate_video_CI(user_id):
             # If the record already existed, update the percentage
             user_video.percentage = comprehension_percentage
             user_video.save()
-
-
-@background()
-def generate_definitions(word_ids):
-    words = Word.objects.filter(id__in=word_ids)
-    definitions = []
-
-    word_batch = [item['word__word_text'] for item in words]
-    translated = GoogleTranslator(source='pl',target='en').translate_batch(word_batch)
-    print(translated)
-
-    #Definition.objects.bulk_create(definitions)
-    # definition = Definition.objects.filter(user=None, word=word)
-    # if not definition:
-    #     translated = GoogleTranslator(source='pl',target='en').translate(word.word_text)
-    #     definition = Definition(user=None, word=word, definition_text=translated)
-    #     definition.save()
