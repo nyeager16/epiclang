@@ -70,7 +70,7 @@ class Definition(models.Model):
         return f"{self.word.word_text} - {self.definition_text}"
 
 class UserWord(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     word = models.ForeignKey(Word, on_delete=models.CASCADE)
     needs_review = models.BooleanField(default=True)
     interval = models.FloatField(default=1.0)
@@ -109,4 +109,12 @@ class UserWord(models.Model):
 
     def __str__(self):
         return f"{self.user.username} - {self.word.word_text}"
+
+class Review(models.Model):
+    user_word = models.ForeignKey(UserWord, on_delete=models.CASCADE)
+    review_time = models.DateTimeField(auto_now_add=True)
+    response_time = models.FloatField()  # Time taken to answer, in seconds
+    correct = models.BooleanField()  # Whether the user answered correctly
+    familiarity_score_before = models.FloatField()  # Familiarity score before review
+    familiarity_score_after = models.FloatField()  # Familiarity score after review
 

@@ -1,5 +1,5 @@
 """
-WSGI config for epiclang project.
+WSGI config for inputquest project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 

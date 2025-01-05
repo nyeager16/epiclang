@@ -1,5 +1,5 @@
 """
-ASGI config for epiclang project.
+ASGI config for inputquest project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 

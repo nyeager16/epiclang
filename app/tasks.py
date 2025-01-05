@@ -1,11 +1,8 @@
 from background_task import background
 from django.contrib.auth.models import User
-from .models import Word, WordInstance, Definition, UserWord, UserVideo, Video, UserPreferences
+from .models import Word, WordInstance, UserWord, UserVideo, Video, UserPreferences
 from django.db.models import Q
 from deep_translator import GoogleTranslator
-
-
-# poetry run python manage.py process_tasks
 
 @background()
 def calculate_video_CI(user_id):

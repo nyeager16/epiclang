@@ -17,6 +17,7 @@ youtube-transcript-api = "^0.6.3"
 scrapetube = "^2.5.1"
 deep-translator = "^1.11.4"
 django4-background-tasks = "^1.2.10"
+torch = "^2.5.1"
 
 
 [tool.poetry.group.dev.dependencies]

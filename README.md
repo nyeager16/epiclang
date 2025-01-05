@@ -37,10 +37,10 @@ InputQuest is a Django-based web application designed to enhance language learni
 
 ## Requirements
 
-- Python 3.13+
+- Python 3.10
 - Django 5.1.3
 - Docker (optional for containerization)
-- PostgreSQL (optional for containerized database)
+- PostgreSQL
 
 ---
 
