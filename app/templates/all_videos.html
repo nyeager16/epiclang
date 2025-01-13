@@ -36,7 +36,6 @@
             <a href="{% url 'login' %}">Log In</a>
         {% endif %}
 
-        {% if user.is_authenticated %}
         <!-- Slider and Filter Button -->
         <form id="filter-form">
             <!-- noUiSlider container -->
@@ -48,7 +47,6 @@
             
             <button type="submit">Apply Filter</button>
         </form>
-        {% endif %}
     </div>
 
     <!-- Main Content -->

@@ -52,7 +52,7 @@ def all_videos(request):
 
         # Get video data (with comprehension percentage if user is authenticated)
         video_data = get_video_data(videos_to_return, user, comprehension_level_min, comprehension_level_max)
-
+        
         return JsonResponse({'videos': video_data, 'has_next': has_next})
 
     # For regular requests (non-AJAX), return the first 10 videos
@@ -69,7 +69,7 @@ def all_videos(request):
 def update_queue_ci(request):
     if request.method == 'POST':
         data = json.loads(request.body)
-        new_percentage = int(data.get('percentage'))  # Default to 50 if not specified
+        new_percentage = int(data.get('percentage'))
         
         # Update the user's preference
         preference, created = UserPreferences.objects.get_or_create(user=request.user)
@@ -80,6 +80,7 @@ def update_queue_ci(request):
 
     return JsonResponse({'status': 'error'})
 
+@login_required(login_url="/app/login/")
 def watch(request):
     if request.user.is_authenticated:
         user = request.user
@@ -87,6 +88,7 @@ def watch(request):
         percentage = user_preferences.queue_CI
     return render(request, 'watch.html', {'percentage': percentage})
 
+@login_required(login_url="/app/login/")
 def watch_queue(request):
     user = request.user
 
@@ -121,6 +123,7 @@ def watch_queue(request):
 
     return render(request, 'watch_queue.html', {'video': video})
 
+@login_required(login_url="/app/login/")
 def update_comprehension_filter(request):
     if request.method == 'POST':
         try:
@@ -193,16 +196,19 @@ class VideoDetailView(View):
             'child_words_mapping': child_words_mapping,
         })
     def post(self, request, pk):
-        user = request.user
-        word_id = request.POST.get('word_id')
+        if request.user.is_authenticated:
+            user = request.user
+            word_id = request.POST.get('word_id')
 
-        word = Word.objects.filter(word_text=word_id).first()
-        userword = UserWord(user=user, word=word)
-        userword.save()
-        calculate_video_CI(user.id)
+            word = Word.objects.filter(word_text=word_id).first()
+            userword = UserWord(user=user, word=word)
+            userword.save()
+            calculate_video_CI(user.id)
 
         return redirect('video_detail', pk=pk)
+        
 
+@login_required(login_url="/app/login/")
 def review(request):
     user = request.user
     
@@ -235,6 +241,7 @@ def review(request):
         'definitions_json': json.dumps(definitions), 
         'message': message})
 
+@login_required(login_url="/app/login/")
 def submit_review(request, word_id, rating):
     if request.method == 'POST':
         """
@@ -247,6 +254,7 @@ def submit_review(request, word_id, rating):
         user_word.update_review_schedule(rating)
         return JsonResponse({'status': 'success'})
 
+@login_required(login_url="/app/login/")
 def change_review(request, word_id, needs_review):
     if request.method == 'POST':
         needs_review = needs_review.lower() == 'true'
@@ -260,6 +268,7 @@ def change_review(request, word_id, needs_review):
 
         return redirect('review')
 
+@login_required(login_url="/app/login/")
 def update_definition(request, word_id):
     user = request.user
     if request.method == 'POST':
@@ -297,8 +306,10 @@ def account(request):
 
     return render(request, 'account.html')
 
+@login_required(login_url="/app/login/")
 def learn(request):
     if request.method == "POST":
+        user = request.user
         word_id = request.POST.get("word_id")
         if word_id:
             word = Word.objects.filter(word_text=word_id).first()
@@ -336,7 +347,7 @@ def learn(request):
     # Filter new words that the user does not already know
     new_words = [word for word in common_words if word['root_word'] not in known_words]
     new_words = new_words[:20]
-    existing_definitions = set(Definition.objects.filter(user=None).values_list('word__id', flat=True))
+    #existing_definitions = set(Definition.objects.filter(user=None).values_list('word__id', flat=True))
 
     return render(request, 'learn.html', {'new_words': new_words})
 
@@ -380,7 +391,7 @@ def learn_word(request, word):
                                                'video_data': video_data,
                                                'definition': definition},)
 
-@login_required
+@login_required(login_url="/app/login/")
 def flashcards(request):
     if request.user.is_authenticated:
         user = request.user
