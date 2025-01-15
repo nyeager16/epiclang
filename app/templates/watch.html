@@ -1,5 +1,4 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'app/css/watch.css' %}">
     <link rel="stylesheet" href="{% static 'app/css/sidebar.css' %}">
-
+    <link rel="icon" href="{% static 'app/images/favicon.ico' %}" type="image/x-icon">
 </head>
 <body>
     {% block sidebar %}
@@ -23,12 +22,10 @@
         </div>
         <button class="button" id="goToQueue">Go to Queue</button>
     </div>
-    
     <script>
         var updateQueueUrl = "{% url 'update_queue_ci' %}";
     </script>
     <script src="{% static 'app/js/watch.js' %}"></script>
-
 </body>
 </html>
     

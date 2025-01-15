@@ -1,87 +1,87 @@
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #fff;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    text-align: center;
+  font-family: 'Arial', sans-serif;
+  background-color: #fff;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  text-align: center;
 }
 
 .container {
-    margin-left: 200px; /* Offset for the sidebar */
-    padding: 20px;
-    border-radius: 12px;
-    max-width: 400px;
-    width: 100%;
+  margin-left: 200px; /* Offset for the sidebar */
+  padding: 20px;
+  border-radius: 12px;
+  max-width: 400px;
+  width: 100%;
 }
 
 h2 {
-    margin-bottom: 20px;
-    color: #333;
+  margin-bottom: 20px;
+  color: #333;
 }
 
 .slider-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
 }
 
 .slider {
-    width: 100%;
-    height: 10px;
-    border-radius: 5px;
-    background: #ddd;
-    -webkit-appearance: none;
-    appearance: none;
-    outline: none;
-    transition: background 0.3s;
+  width: 100%;
+  height: 10px;
+  border-radius: 5px;
+  background: #ddd;
+  -webkit-appearance: none;
+  appearance: none;
+  outline: none;
+  transition: background 0.3s;
 }
 
 .slider:hover {
-    background: #aaa;
+  background: #aaa;
 }
 
 .slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: #3498db;
-    cursor: pointer;
-    transition: background 0.3s;
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #3498db;
+  cursor: pointer;
+  transition: background 0.3s;
 }
 
 .slider::-moz-range-thumb {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: #3498db;
-    cursor: pointer;
-    transition: background 0.3s;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #3498db;
+  cursor: pointer;
+  transition: background 0.3s;
 }
 
 .percentage {
-    font-size: 1.5em;
-    color: #333;
-    font-weight: bold;
+  font-size: 1.5em;
+  color: #333;
+  font-weight: bold;
 }
 
 .button {
-    margin-top: 20px;
-    background-color: #3498db;
-    color: white;
-    padding: 12px 20px;
-    border-radius: 30px;
-    font-size: 1.1em;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s;
+  margin-top: 20px;
+  background-color: #3498db;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 30px;
+  font-size: 1.1em;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 .button:hover {
-    background-color: #2980b9;
+  background-color: #2980b9;
 }

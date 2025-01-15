@@ -1,5 +1,4 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,30 +7,22 @@
     <title>Learn {{ word }}</title>
     <link rel="stylesheet" href="{% static 'app/css/learn_word.css' %}">
     <link rel="stylesheet" href="{% static 'app/css/sidebar.css' %}">
-
+    <link rel="icon" href="{% static 'app/images/favicon.ico' %}" type="image/x-icon">
 </head>
 <body>
-
     {% block sidebar %}
     {% include 'sidebar.html' %}
     {% endblock %}
-
-    <!-- Main Content -->
     <div class="content">
-
         <iframe id="player" width="560" height="315"
                 src="https://www.youtube.com/embed/{{ video_data.url }}?enablejsapi=1"
                 frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-
-        <!-- Navigation controls for timestamps -->
         <div class="navigation-controls">
             <button class="nav-button" onclick="previousTimestamp()">⬅</button>
             <button class="nav-button" onclick="skipToCurrent()">Skip to "{{ currentWord }}"</button>
             <button class="nav-button" onclick="nextTimestamp()">➡</button>
         </div>
     </div>
-
-    <!-- YouTube API Script -->
     <script src="https://www.youtube.com/iframe_api"></script>
     <script>
         var timestamps = [
@@ -41,7 +32,5 @@
         ];
     </script>
     <script src="{% static 'app/js/learn_word.js' %}"></script>
-
-
 </body>
 </html>

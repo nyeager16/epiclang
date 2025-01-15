@@ -1,5 +1,4 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,14 +7,12 @@
     <title>Learn</title>
     <link rel="stylesheet" href="{% static 'app/css/learn.css' %}">
     <link rel="stylesheet" href="{% static 'app/css/sidebar.css' %}">
-
+    <link rel="icon" href="{% static 'app/images/favicon.ico' %}" type="image/x-icon">
 </head>
 <body>
-
     {% block sidebar %}
     {% include 'sidebar.html' %}
     {% endblock %}
-
     <!-- Learn Content -->
     <div class="word-sections">
         {% if new_words %}
@@ -43,8 +40,6 @@
             </div>
         {% endif %}
     </div>
-
     <script src="{% static 'app/js/learn.js' %}"></script>
-
 </body>
 </html>

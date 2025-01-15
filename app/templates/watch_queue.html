@@ -1,7 +1,6 @@
 {% load youtube_extras %}
 {% load custom_filters %}
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'app/css/sidebar.css' %}">
     <link rel="stylesheet" href="{% static 'app/css/watch_queue.css' %}">
-
+    <link rel="icon" href="{% static 'app/images/favicon.ico' %}" type="image/x-icon">
 </head>
 <body>
     {% block sidebar %}
@@ -23,7 +22,6 @@
                     frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
             </iframe>
         </div>
-
         <!-- Buttons -->
         <div class="action-buttons">
             <!-- Form for "I've Watched This" -->
@@ -33,7 +31,6 @@
                 <input type="hidden" name="video_id" value="{{ video.id }}">
                 <button type="submit">I've Watched This</button>
             </form>
-
             <!-- Form for "Next in Queue" -->
             <form method="post" action="">
                 {% csrf_token %}
@@ -45,7 +42,6 @@
             </form>
         </div>
     </div>
-
 </body>
 </html>
     

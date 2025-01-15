@@ -1,7 +1,6 @@
 {% load youtube_extras %}
 {% load custom_filters %}
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,34 +10,26 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'app/css/style.css' %}">
     <link rel="stylesheet" href="{% static 'app/css/sidebar.css' %}">
-
+    <link rel="icon" href="{% static 'app/images/favicon.ico' %}" type="image/x-icon">
 </head>
 <body>
-
     {% block sidebar %}
     {% include 'sidebar.html' %}
     {% endblock %}
-
     <div class="content">
         <div class="container">
             <iframe src="https://www.youtube.com/embed/{{ video.url|youtube_id }}" 
                     frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
             </iframe>
-
-            <h1 class="video-title">{{ video.title|title }}</h1> <!-- Title below the video -->
-
-            <hr class="section-divider"> <!-- Horizontal line between sections -->
-
+            <h1 class="video-title">{{ video.title|title }}</h1>
+            <hr class="section-divider">
             <div class="new-words">
                 <h2>New Words</h2>
                 {% for word in new_words %}
                     <span class="word" data-word="{{ word.root_word }}">{{ word.root_word }}</span>
                 {% endfor %}
             </div>
-
             <div class="child-words" id="child-words-container"></div>
-
-            <!-- Bottom buttons -->
             <div class="buttons-container">
                 <a id="learn-button" href="#" class="action-button">Learn</a>
                 <form method="post">
@@ -49,12 +40,10 @@
             </div>
         </div>
     </div>
-
     <script>
         var childWordsMapping = {{ child_words_mapping|safe }};
         var learnWordUrlTemplate = "{% url 'learn_word' 'root_word' %}";  // URL template for learning a word
     </script>
     <script src="{% static 'app/js/video_detail.js' %}"></script>
-
 </body>
 </html>

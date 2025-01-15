@@ -1,5 +1,4 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,24 +8,20 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'app/css/review.css' %}">
     <link rel="stylesheet" href="{% static 'app/css/sidebar.css' %}">
+    <link rel="icon" href="{% static 'app/images/favicon.ico' %}" type="image/x-icon">
 </head>
 <body>
-
     {% block sidebar %}
     {% include 'sidebar.html' %}
     {% endblock %}
-
     <div class="container">
         <div class="content">
             <!-- Word Display -->
             <div class="word-display" id="wordDisplay">{{ words.0.word.word_text }}</div>
-
             <!-- Answer Display -->
             <div class="answer" id="answerDisplay">{{ definitions.0 }}</div>
-
             <!-- Show Answer Button -->
             <button id="showAnswerBtn" class="show-answer-btn">Show Answer (Space)</button>
-
             <!-- Rating Buttons -->
             <div class="ratings-container" id="ratingsContainer">
                 <button class="rating-btn" data-rating="0">Again (1)</button>
@@ -34,7 +29,6 @@
                 <button class="rating-btn" data-rating="2">Good (3)</button>
                 <button class="rating-btn" data-rating="3">Easy (4)</button>
             </div>
-
             <div class="button-container">
                 <!-- Edit Flashcard Button -->
                 <button id="editFlashcardBtn" class="delete-btn" style="display: none;">Edit</button>
@@ -52,12 +46,10 @@
             </div>
         </div>
     </div>
-
     <script>
         const words = JSON.parse('{{ words_data_json|escapejs }}');
         const definitions = JSON.parse('{{ definitions_json|escapejs }}');
     </script>
     <script src="{% static 'app/js/review.js' %}"></script>
-
 </body>
 </html>

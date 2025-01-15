@@ -1,5 +1,4 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,19 +7,15 @@
     <title>Your Account</title>
     <link rel="stylesheet" href="{% static 'app/css/account.css' %}">
     <link rel="stylesheet" href="{% static 'app/css/sidebar.css' %}">
-
-    
+    <link rel="icon" href="{% static 'app/images/favicon.ico' %}" type="image/x-icon">
 </head>
 <body>
-
     {% block sidebar %}
     {% include 'sidebar.html' %}
     {% endblock %}
-
     <!-- Account Details -->
     <div class="container">
         <a href="{% url 'flashcards' %}" class="flashcard-button">Flashcards</a>
     </div>
-
 </body>
 </html>

@@ -312,7 +312,7 @@ def learn(request):
             word = Word.objects.filter(word_text=word_id).first()
             UserWord.objects.create(user=request.user, word=word)
             calculate_video_CI(user.id)
-            return redirect('learn')  # Redirect to the learn page
+            return redirect('learn')
 
     # Get the user's language preference
     user_language = None
@@ -344,7 +344,6 @@ def learn(request):
     # Filter new words that the user does not already know
     new_words = [word for word in common_words if word['root_word'] not in known_words]
     new_words = new_words[:20]
-    #existing_definitions = set(Definition.objects.filter(user=None).values_list('word__id', flat=True))
 
     return render(request, 'learn.html', {'new_words': new_words})
 

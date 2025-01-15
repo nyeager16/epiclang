@@ -1,6 +1,5 @@
 {% load youtube_extras %}
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,10 +10,9 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.5.1/nouislider.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'app/css/style.css' %}">
     <link rel="stylesheet" href="{% static 'app/css/sidebar.css' %}">
+    <link rel="icon" href="{% static 'app/images/favicon.ico' %}" type="image/x-icon">
 </head>
 <body>
-
-    <!-- Sidebar -->
     <div class="sidebar">
         <h1>InputQuest</h1>
         <div class="language-display">
@@ -36,21 +34,13 @@
         {% else %}
             <a href="{% url 'login' %}">Log In</a>
         {% endif %}
-
-        <!-- Slider and Filter Button -->
         <form id="filter-form">
-            <!-- noUiSlider container -->
             <div id="range-slider" style="margin-bottom: 20px;"></div>
-            
-            <!-- Hidden fields to store selected min and max values for submission -->
             <input type="hidden" name="min_comprehension" id="min-comprehension" value="{{ min_comprehension|default:0 }}">
             <input type="hidden" name="max_comprehension" id="max-comprehension" value="{{ max_comprehension|default:100 }}">
-            
             <button type="submit">Apply Filter</button>
         </form>
     </div>
-
-    <!-- Main Content -->
     <div class="content">
         <div class="video-grid" id="video-grid">
             {% for video in videos %}
@@ -72,13 +62,11 @@
             {% endfor %}
         </div>
     </div>
-
     <script>
         var allVideosUrl = "{% url 'all_videos' %}";
         var updateComprehensionUrl = "{% url 'update_comprehension_filter' %}";
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.5.1/nouislider.min.js"></script>
     <script src="{% static 'app/js/videos.js' %}"></script>
-
 </body>
 </html>
