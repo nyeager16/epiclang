@@ -5,15 +5,19 @@ class Command(BaseCommand):
     help = 'Add Definitions to Table'
 
     def handle(self, *args, **options):
-        batchsize = 10000
+        batchsize = 5000
         definitions = []
-        for word in Word.objects.all():
+
+        words = Word.objects.all().iterator()
+
+        for word in words:
             definition = Definition(user=None, word=word, definition_text="")
             definitions.append(definition)
             if len(definitions) > batchsize:
                 Definition.objects.bulk_create(definitions)
-                definitions = []
+                definitions.clear()
         if definitions:
             Definition.objects.bulk_create(definitions)
+
 
 # python manage.py definition
