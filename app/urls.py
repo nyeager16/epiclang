@@ -25,6 +25,8 @@ urlpatterns = [
 
     path("account/", views.account, name="account"),
     path("account/flashcards", views.flashcards, name="flashcards"),
+
+    path("about/", views.about, name="about"),
     
     path('update-definition/<int:word_id>/', views.update_definition, name='update_definition'),
 ]

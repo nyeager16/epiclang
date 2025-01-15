@@ -1,4 +1,4 @@
-from .models import Language, WordInstance, UserWord, UserVideo, Video, UserPreferences
+from .models import Language, Word, WordInstance, UserWord, UserVideo, Video, UserPreferences
 from django.db.models.functions import Coalesce
 
 def setup_user(user):
@@ -8,6 +8,11 @@ def setup_user(user):
     language = Language.objects.get(abb="pl")
     UserPreferences(user=user, language=language).save()
 
+def add_words(user, word_ids):
+    for word_id in word_ids:
+        word = Word.objects.filter(word_text=word_id).first()
+        userword = UserWord(user=user, word=word)
+        userword.save()
 
 def get_video_data(videos, user=None, comprehension_level_min=0, comprehension_level_max=100):
     video_data = []

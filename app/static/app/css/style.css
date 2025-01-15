@@ -1,81 +1,95 @@
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #fff; /* White background */
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #fff; /* White background */
+}
+
+.content {
+  margin-left: 200px; /* Offset for the sidebar */
+  padding: 20px;
+}
+
+.container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: none;
 }
 
 .video-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Default: 3 videos per row */
-    gap: 20px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Default: 3 videos per row */
+  gap: 20px;
 }
 
 .video-item {
-    background-color: white;
-    padding: 10px;
-    border-radius: 8px;
-    border: none; /* Remove border from the video item */
+  background-color: white;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
 }
 
 .thumbnail-wrapper {
-    position: relative;
-    width: 100%;
-    padding-bottom: 56.25%;
-    background-color: #000;
-    border-radius: 8px;
-    overflow: hidden;
-    margin-bottom: 10px; /* Add more spacing between thumbnail and title */
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%;
+  background-color: #000;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 10px;
 }
 
 .thumbnail-wrapper img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 8px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
 }
 
 .video-info {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start; /* Align items to the start */
-    margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 10px;
 }
 
 .percentage {
-    width: 40px; /* Fixed width for circle */
-    height: 40px; /* Fixed height for circle */
-    min-width: 40px; /* Prevent shrinking */
-    min-height: 40px; /* Prevent shrinking */
-    border-radius: 50%; /* Make it circular */
-    border: 2px solid black; /* Black border */
-    display: flex; /* Use flexbox to center text */
-    align-items: center; /* Center vertically */
-    justify-content: center; /* Center horizontally */
-    margin-right: 10px; /* Spacing between percentage and title */
-    box-sizing: border-box; /* Include border in width and height */
-    flex: 0 0 auto; /* Prevent growing and shrinking */
-    background-color: white; /* Set background color to white */
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  min-height: 40px;
+  border-radius: 50%;
+  border: 2px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+  box-sizing: border-box;
+  flex: 0 0 auto;
+  background-color: white;
 }
 
 .title {
     font-size: 16px;
     color: #333;
-    text-align: left; /* Align title to the left */
+    text-align: left;
     flex-grow: 1;
-    overflow: hidden; /* Hide overflow */
-    text-overflow: ellipsis; /* Show ellipsis when overflow */
-    display: -webkit-box; /* Use flexbox model */
-    -webkit-box-orient: vertical; /* Vertical orientation for box */
-    -webkit-line-clamp: 2; /* Limit to 2 lines */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
 }
 
 .noUi-handle::before,
 .noUi-handle::after {
-    display: none !important; /* Hide any pseudo-elements like ::before and ::after */
+    display: none !important;
 }
 
 /* Slider handle styling */
@@ -130,19 +144,6 @@ body {
     }
 }
 
-.content {
-    margin-left: 200px; /* Offset for the sidebar */
-    padding: 20px;
-}
-
-.container {
-    max-width: 800px;
-    margin: 20px auto;
-    padding: 20px;
-    background: white;
-    border-radius: 8px;
-    box-shadow: none;
-}
 
 #learn-button {
     text-decoration: none;

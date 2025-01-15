@@ -13,7 +13,7 @@ class Language(models.Model):
 
 class Word(models.Model):
     word_text = models.CharField(max_length=40, db_index=True)
-    lang = models.ForeignKey(Language, on_delete=models.SET_NULL, null=True)
+    lang = models.ForeignKey(Language, on_delete=models.SET_NULL, null=True, db_index=True)
     tag = models.CharField(max_length=60, null=True, db_index=True)
     wtype = models.CharField(max_length=60, null=True, db_index=True)
     abb = models.CharField(max_length=40, null=True, db_index=True)
@@ -49,8 +49,8 @@ class WatchHistory(models.Model):
 class WordInstance(models.Model):
     word = models.ForeignKey(Word, on_delete=models.CASCADE)
     video = models.ForeignKey(Video, on_delete=models.CASCADE)
-    start = models.CharField(max_length=10)
-    end = models.CharField(max_length=10)
+    start = models.CharField(max_length=10, db_index=True)
+    end = models.CharField(max_length=10, db_index=True)
     def __str__(self):
         return self.word.word_text
 

@@ -16,20 +16,19 @@ class Command(BaseCommand):
 
         df = pd.read_csv(filepath, delimiter='\t')
 
-        definitions = []
         words = []
         batchsize = 10000
 
         lang = "pl"
+        langname = "Polish"
         pl, created = Language.objects.get_or_create(
-            name="Polish", abb=lang
+            name=langname, abb=lang
         )
 
         currRootForm = ""
         currRootObject = None
         rootExists = False
         heldRows = []
-
         for row in df.itertuples():
             form = row.form
             lemma = row.lemma
@@ -66,12 +65,20 @@ class Command(BaseCommand):
                     currRootObject = Word(word_text=form, lang=pl, tag=row.tag,
                                         wtype=row.desc, abb=row.abb, root=None)
                     currRootObject.save()
-                    definitions.append(Definition(word=currRootObject, user=None))
                 rootExists = True
             else:
                 heldRows.append(row)
         if words:
             Word.objects.bulk_create(words)
-        Definition.objects.bulk_create(definitions)
+        
+        definitions = []
+        for word in Word.objects.all():
+            definition = Definition(user=None, word=word, definition_text="")
+            definitions.append(definition)
+            if len(definitions) > batchsize:
+                Definition.objects.bulk_create(definitions)
+                definitions = []
+        if definitions:
+            Definition.objects.bulk_create(definitions)
 
 # python manage.py tabimport "data/sgjp-20240929.tab"

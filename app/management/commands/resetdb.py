@@ -1,12 +1,12 @@
 from django.core.management.base import BaseCommand
-from app.models import Word, Channel, Video, WordInstance, UserPreferences
+from app.models import Word, Channel, Video, WordInstance, Definition
 from django.db import transaction, connection
 
 class Command(BaseCommand):
-    help = 'Deletes all data from Word, Channel, Video, and WordInstance models'
+    help = 'Deletes all data from Word, Channel, Video, WordInstance, and Definition models'
 
     def handle(self, *args, **kwargs):
-        models_to_clear = [Word, Channel, Video, WordInstance]
+        models_to_clear = [Word, Channel, Video, WordInstance, Definition]
 
         with transaction.atomic():
             for model in models_to_clear:
@@ -22,6 +22,6 @@ class Command(BaseCommand):
             cursor.execute("ALTER SEQUENCE app_channel_id_seq RESTART WITH 1;")
             cursor.execute("ALTER SEQUENCE app_video_id_seq RESTART WITH 1;")
             cursor.execute("ALTER SEQUENCE app_wordinstance_id_seq RESTART WITH 1;")
-            #cursor.execute("ALTER SEQUENCE app_userpreferences_id_seq RESTART WITH 1;")
+            cursor.execute("ALTER SEQUENCE app_definition_id_seq RESTART WITH 1;")
 
 # python manage.py resetdb

@@ -10,7 +10,7 @@ from django.db.models import Count, F, Q
 from django.db.models.functions import Coalesce
 from .forms import SignUpForm
 from .tasks import calculate_video_CI
-from .utils import setup_user, get_video_data, get_CI_video_sections
+from .utils import setup_user, get_video_data, get_CI_video_sections, add_words
 import json
 from deep_translator import GoogleTranslator
 
@@ -109,7 +109,6 @@ def watch_queue(request):
             watch_history = WatchHistory(user=user, video=Video.objects.get(id=id), start=start, end=end)
             watch_history.save()
 
-        # Redirect back to the same page (refresh)
         return redirect(request.path_info)
 
     user_preferences = UserPreferences.objects.get(user=user)
@@ -127,7 +126,7 @@ def watch_queue(request):
 def update_comprehension_filter(request):
     if request.method == 'POST':
         try:
-            data = json.loads(request.body)  # Load JSON data
+            data = json.loads(request.body)
 
             min_comprehension = data.get('min_comprehension', 0)
             max_comprehension = data.get('max_comprehension', 100)
@@ -154,7 +153,6 @@ class VideoDetailView(View):
 
         word_limit = 20
 
-        # Query the top 50 most common words, considering root and child words
         common_words = (
             WordInstance.objects
             .filter(video=video)
@@ -173,7 +171,7 @@ class VideoDetailView(View):
         # Filter new words that the user does not already know
         new_words = [word for word in common_words if word['root_word'] not in known_words]
 
-        new_words = new_words[:word_limit]  # Limit to 50 words
+        new_words = new_words[:word_limit]
 
         child_words_mapping = defaultdict(set)  # Store child words as a set
 
@@ -181,12 +179,11 @@ class VideoDetailView(View):
             root_text = root_word['root_word']
             child_words = (
                 WordInstance.objects
-                .filter(Q(video=video) & (Q(word__root__word_text=root_text) | Q(word__word_text=root_text)))  # Filter by the root word
+                .filter(Q(video=video) & (Q(word__root__word_text=root_text) | Q(word__word_text=root_text)))
                 .values_list('word__word_text', flat=True)  # Get the text of the child words
             )
             # Add child words to the mapping
-            
-            child_words_mapping[root_text].update(child_words)  # Use set to ensure uniqueness
+            child_words_mapping[root_text].update(child_words)
 
         # Convert sets back to lists for rendering
         child_words_mapping = {root: list(children) for root, children in child_words_mapping.items()}
@@ -200,9 +197,7 @@ class VideoDetailView(View):
             user = request.user
             word_id = request.POST.get('word_id')
 
-            word = Word.objects.filter(word_text=word_id).first()
-            userword = UserWord(user=user, word=word)
-            userword.save()
+            add_words(user, [word_id])
             calculate_video_CI(user.id)
 
         return redirect('video_detail', pk=pk)
@@ -215,13 +210,11 @@ def review(request):
     words_to_review = UserWord.objects.filter(user=user, needs_review=True, next_review__lte=now())
     
     if not words_to_review.exists():
-        # Optionally pass a message or flag indicating that there are no words to review
         message = "No words to review at the moment."
-        words_data = []  # No words to serialize
+        words_data = []
         definitions = []
     else:
-        message = None  # No message needed if there are words to review
-        # Convert QuerySet to a list of dictionaries that can be serialized to JSON
+        message = None 
         words_data = list(words_to_review.values('id', 'word_id', 'word__word_text'))
         word_id = words_data[0]['word_id']
 
@@ -305,6 +298,10 @@ def signup(request):
 def account(request):
 
     return render(request, 'account.html')
+
+def about(request):
+
+    return render(request, 'about.html')
 
 @login_required(login_url="/app/login/")
 def learn(request):
