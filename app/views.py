@@ -6,7 +6,8 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from django.utils.timezone import now
 from .models import Video, WatchHistory, WordInstance, Word, UserWord, UserVideo, UserPreferences, Language, Definition
-from django.db.models import Count, F, Q
+from django.db import models
+from django.db.models import Case, When, Count, F, Q
 from django.db.models.functions import Coalesce
 from .forms import SignUpForm
 from .tasks import calculate_video_CI
@@ -157,12 +158,25 @@ class VideoDetailView(View):
             WordInstance.objects
             .filter(video=video)
             .annotate(
-                root_word=Coalesce('word__root__word_text', 'word__word_text')  # Use the root's text if it exists, otherwise the word's text
+                # For root words, use the word's text; for non-root words, use the root's text
+                root_word=Case(
+                    When(word__root__isnull=True, then=F('word__word_text')),  # If no root, use the word's text
+                    default=F('word__root__word_text'),  # Otherwise, use the root's text
+                    output_field=models.CharField()
+                ),
+                root_word_id=Case(
+                    When(word__root__isnull=True, then=F('word__id')),  # If no root, use the word's own ID
+                    default=F('word__root__id'),  # Otherwise, use the root word's ID
+                    output_field=models.IntegerField()
+                ),
             )
-            .values('root_word')  # Group by the root word
-            .annotate(word_count=Count('id'))  # Count occurrences
+            .values('root_word', 'root_word_id')  # Include root word's ID
+            .annotate(
+                word_count=Count('id')  # Count occurrences
+            )
             .order_by('-word_count')  # Sort by count, descending
-        )
+)
+
         # Get known words only if the user is logged in
         known_words = set()
         if request.user.is_authenticated:
@@ -175,18 +189,19 @@ class VideoDetailView(View):
 
         child_words_mapping = defaultdict(set)  # Store child words as a set
 
-        for root_word in new_words:
-            root_text = root_word['root_word']
+        for row in new_words:
+            root_id = row['root_word_id']
             child_words = (
                 WordInstance.objects
-                .filter(Q(video=video) & (Q(word__root__word_text=root_text) | Q(word__word_text=root_text)))
+                .filter(Q(video=video) & (Q(word__root__id=root_id) | Q(word__id=root_id)))
                 .values_list('word__word_text', flat=True)  # Get the text of the child words
             )
             # Add child words to the mapping
-            child_words_mapping[root_text].update(child_words)
+            child_words_mapping[root_id].update(child_words)
 
         # Convert sets back to lists for rendering
         child_words_mapping = {root: list(children) for root, children in child_words_mapping.items()}
+
         return render(request, 'video_detail.html', {
             'video': video,
             'new_words': new_words,
@@ -195,8 +210,9 @@ class VideoDetailView(View):
     def post(self, request, pk):
         if request.user.is_authenticated:
             user = request.user
-            word_id = request.POST.get('word_id')
-
+            word_id = int(request.POST.get('word_id'))
+            if word_id == '':
+                return redirect('video_detail', pk=pk)
             add_words(user, [word_id])
             calculate_video_CI(user.id)
 
@@ -225,7 +241,10 @@ def review(request):
                 definition = Definition.objects.get(user=user, word_id=word_id)
             except:
                 definition = Definition.objects.filter(user=None, word_id=word_id).first()
-            definitions.append(definition.definition_text)
+            if definition.definition_text == None:
+                definitions.append("")
+            else:
+                definitions.append(definition.definition_text)
 
     return render(request, 'review.html', {
         'words_data': words_data, 

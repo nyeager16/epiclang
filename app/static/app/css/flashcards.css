@@ -3,17 +3,17 @@ body {
     margin: 0;
     padding: 0;
     background-color: #fff;
-    overflow: hidden; /* Prevent body overflow */
+    overflow: hidden;
 }
 
 /* Content area styling */
 .container {
-    margin-left: 200px; /* Offset for the sidebar */
-    margin-top: 20px; /* Space at the top */
-    height: calc(100vh - 40px); /* Adjust height */
-    display: flex; /* Use flexbox */
-    justify-content: center; /* Center content horizontally */
-    align-items: flex-start; /* Align items to the top */
+    margin-left: 200px;
+    margin-top: 20px;
+    height: calc(100vh - 40px);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
 }
 
 /* Flashcard list styles */
@@ -48,30 +48,30 @@ body {
 
 /* Flashcard item styles */
 .flashcard-item {
-    display: flex; /* Use flexbox for columns */
-    justify-content: space-between; /* Evenly space columns */
-    align-items: center; /* Center items vertically */
-    padding: 5px 10px; /* Reduced padding for a tighter layout */
-    border: 1px solid #ddd; /* Border around each item */
-    background-color: #f9f9f9; /* Light background color */
-    cursor: pointer; /* Pointer cursor on hover */
-    transition: background-color 0.3s; /* Smooth transitions */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
 /* Change background color on hover */
 .flashcard-item:hover {
-    background-color: #e9ecef; /* Light gray on hover */
+    background-color: #e9ecef;
 }
 
 /* Change background color when active (clicked) */
 .flashcard-item:active {
-    background-color: #007bff; /* Primary color when clicked */
-    color: white; /* Change text color */
+    background-color: #007bff;
+    color: white;
 }
 
 .flashcard-item.active {
-    background-color: #007bff; /* Gray color when active */
-    color: white; /* Change text color to white */
+    background-color: #007bff;
+    color: white;
 }
 
 /* Flashcard detail styles */
@@ -115,9 +115,9 @@ textarea {
 }
 
 .button-container {
-    display: flex; /* Use flexbox for centering */
-    justify-content: center; /* Center the button horizontally */
-    margin-top: 15px; /* Space above the button */
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
 }
 
 /* Button styles */
@@ -128,9 +128,9 @@ button {
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.3s; /* Smooth transition */
+    transition: background-color 0.3s;
 }
 
 button:hover {
-    background-color: #0056b3; /* Darker blue on hover */
+    background-color: #0056b3;
 }

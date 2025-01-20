@@ -76,4 +76,4 @@ class Command(BaseCommand):
 # python manage.py ytimport "https://www.youtube.com/@EasyPolish" "pl"
 # python manage.py ytimport "https://www.youtube.com/@Robert_Maklowicz" "pl"
 # python manage.py ytimport "https://www.youtube.com/@DoRoboty" "pl"
-
+# python manage.py ytimport "https://www.youtube.com/@LingoPutPolish" "pl"

@@ -1,5 +1,6 @@
-from .models import Language, Word, WordInstance, UserWord, UserVideo, Video, UserPreferences
+from .models import Language, Word, WordInstance, UserWord, UserVideo, Video, UserPreferences, Definition
 from django.db.models.functions import Coalesce
+from .tasks import add_definitions
 
 def setup_user(user):
     videos = Video.objects.all()
@@ -9,8 +10,11 @@ def setup_user(user):
     UserPreferences(user=user, language=language).save()
 
 def add_words(user, word_ids):
+    defined_word_ids = Definition.objects.filter(word_id__in=word_ids, definition_text__isnull=False).values_list('word_id', flat=True)
+    undefined_word_ids = list(set(word_ids) - set(defined_word_ids))
+    add_definitions(undefined_word_ids, 'pl')
     for word_id in word_ids:
-        word = Word.objects.filter(word_text=word_id).first()
+        word = Word.objects.filter(id=word_id).first()
         userword = UserWord(user=user, word=word)
         userword.save()
 

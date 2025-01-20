@@ -11,7 +11,7 @@ class Command(BaseCommand):
         words = Word.objects.all().iterator()
 
         for word in words:
-            definition = Definition(user=None, word=word, definition_text="")
+            definition = Definition(user=None, word=word, definition_text=None)
             definitions.append(definition)
             if len(definitions) > batchsize:
                 Definition.objects.bulk_create(definitions)

@@ -26,7 +26,7 @@
             <div class="new-words">
                 <h2>New Words</h2>
                 {% for word in new_words %}
-                    <span class="word" data-word="{{ word.root_word }}">{{ word.root_word }}</span>
+                    <span class="word" data-word="{{ word.root_word }}" data-word-id="{{ word.root_word_id}}">{{ word.root_word }}</span>
                 {% endfor %}
             </div>
             <div class="child-words" id="child-words-container"></div>
@@ -42,7 +42,7 @@
     </div>
     <script>
         var childWordsMapping = {{ child_words_mapping|safe }};
-        var learnWordUrlTemplate = "{% url 'learn_word' 'root_word' %}";  // URL template for learning a word
+        var learnWordUrlTemplate = "{% url 'learn_word' 'root_word' %}";
     </script>
     <script src="{% static 'app/js/video_detail.js' %}"></script>
 </body>

@@ -1,12 +1,15 @@
 from background_task import background
 from django.contrib.auth.models import User
-from .models import Word, WordInstance, UserWord, UserVideo, Video, UserPreferences
+from .models import Word, WordInstance, UserWord, UserVideo, Video, UserPreferences, Definition
 from django.db.models import Q
 from deep_translator import GoogleTranslator
 
 @background()
 def calculate_video_CI(user_id):
-    user = User.objects.get(id=user_id)
+    try:
+        user = User.objects.get(id=user_id)
+    except:
+        return
     language = UserPreferences.objects.get(user=user).language
     videos = Video.objects.filter(language=language)
 
@@ -32,3 +35,13 @@ def calculate_video_CI(user_id):
             # If the record already existed, update the percentage
             user_video.percentage = comprehension_percentage
             user_video.save()
+
+@background()
+def add_definitions(word_ids, source):
+    translator = GoogleTranslator(source=source, target='en')
+    for word_id in word_ids:
+        word = Word.objects.get(id=word_id)
+        translated_word = translator.translate(text=word.word_text)
+        definition = Definition.objects.get(word=word)
+        definition.definition_text = translated_word
+        definition.save()

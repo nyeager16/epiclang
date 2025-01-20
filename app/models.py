@@ -45,7 +45,6 @@ class WatchHistory(models.Model):
     end = models.FloatField(default=0.0)
     completed = models.BooleanField(default=False)
 
-
 class WordInstance(models.Model):
     word = models.ForeignKey(Word, on_delete=models.CASCADE)
     video = models.ForeignKey(Video, on_delete=models.CASCADE)
@@ -64,7 +63,7 @@ class UserPreferences(models.Model):
 class Definition(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     word = models.ForeignKey(Word, on_delete=models.CASCADE)
-    definition_text = models.TextField()
+    definition_text = models.TextField(null=True)
 
     def __str__(self):
         return f"{self.word.word_text} - {self.definition_text}"

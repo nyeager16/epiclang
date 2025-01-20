@@ -2,11 +2,11 @@ body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #fff; /* White background */
+  background-color: #fff;
 }
 
 .content {
-  margin-left: 200px; /* Offset for the sidebar */
+  margin-left: 200px;
   padding: 20px;
 }
 
@@ -21,7 +21,7 @@ body {
 
 .video-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* Default: 3 videos per row */
+  grid-template-columns: repeat(3, 1fr);
   gap: 20px;
 }
 
@@ -87,6 +87,7 @@ body {
     -webkit-line-clamp: 2;
 }
 
+
 .noUi-handle::before,
 .noUi-handle::after {
     display: none !important;
@@ -94,26 +95,28 @@ body {
 
 /* Slider handle styling */
 .noUi-handle {
-    background-color: #009688; /* Purple handle (or any modern color) */
-    width: 18px; /* Small but visible handle width */
-    height: 18px; /* Slightly taller than wide for a clean circular look */
-    border-radius: 50%; /* Fully rounded for a sleek, minimalist design */
-    box-shadow: none; /* No shadow for a flat design */
-    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth color and scale transitions */
+    background-color: #009688;
+    width: 10px;
+    height: 18px;
+    border-radius: 50%;
+    box-shadow: none;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .noUi-connect {
-    background-color: #009688; /* Purple active track */
+    background-color: #009688;
     height: 6px;
 }
 
 .noUi-base {
-    background-color: #ddd; /* Light gray base */
+    background-color: #ddd;
     height: 6px;
     border-radius: 4px;
 }
 
 .noUi-tooltip {
+    bottom: -30px;
+    transform: translateY(100%);
     background-color: #009688;
     color: white;
     padding: 5px;
@@ -121,25 +124,24 @@ body {
     font-size: 13px;
 }
 
-/* Responsive Styles */
-@media (max-width: 1200px) { /* Medium screens */
+@media (max-width: 1200px) {
     .video-grid {
-        grid-template-columns: repeat(2, 1fr); /* 2 videos per row */
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
-@media (max-width: 800px) { /* Small screens */
+@media (max-width: 800px) {
     .video-grid {
-        grid-template-columns: 1fr; /* 1 video per row */
+        grid-template-columns: 1fr;
     }
 
     .video-info {
-        flex-direction: row; /* Keep in row layout */
-        align-items: center; /* Center align */
+        flex-direction: row;
+        align-items: center;
     }
 
     .title {
-        text-align: left; /* Align text to the left */
+        text-align: left;
         margin-left: 0;
     }
 }
