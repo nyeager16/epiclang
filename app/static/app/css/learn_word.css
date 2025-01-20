@@ -5,14 +5,12 @@ body {
     background-color: #f4f4f4;
 }
 
-/* Main content area */
 .content {
-    margin-left: 200px; /* Offset for the sidebar */
+    margin-left: 200px;
     padding: 20px;
     text-align: center;
 }
 
-/* Modern button styles */
 .navigation-controls {
     display: flex;
     align-items: center;

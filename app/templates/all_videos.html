@@ -13,35 +13,16 @@
     <link rel="icon" href="{% static 'app/images/favicon.ico' %}" type="image/x-icon">
 </head>
 <body>
-    <div class="sidebar">
-        <h1>InputQuest</h1>
-        <div class="language-display">
-            Language: {{ selected_language|default:"N/A" }}
-        </div>
-        <a href="{% url 'all_videos' %}">Videos</a>
-        {% if user.is_authenticated %}
-        <a href="{% url 'watch' %}">Watch</a>
-        <a href="{% url 'learn' %}">Learn</a>
-        <a href="{% url 'review' %}">Review</a>
-        {% endif %}
-        <a href="{% url 'about' %}">About</a>
-        {% if user.is_authenticated %}
-        <a href="{% url 'flashcards' %}">My Vocabulary</a>
-            <form action="{% url 'logout' %}" method="POST" style="display:inline;">
-                {% csrf_token %}
-                <button type="submit">Log Out</button>
-            </form>
-        {% else %}
-            <a href="{% url 'login' %}">Log In</a>
-        {% endif %}
+    {% block sidebar %}
+    {% include 'sidebar.html' %}
+    {% endblock %}
+    <div class="content">
         <form id="filter-form">
-            <div id="range-slider" style="margin-bottom: 20px;"></div>
+            <div id="range-slider"></div>
             <input type="hidden" name="min_comprehension" id="min-comprehension" value="{{ min_comprehension|default:0 }}">
             <input type="hidden" name="max_comprehension" id="max-comprehension" value="{{ max_comprehension|default:100 }}">
             <button type="submit">Apply Filter</button>
         </form>
-    </div>
-    <div class="content">
         <div class="video-grid" id="video-grid">
             {% for video in videos %}
             <div class="video-item">

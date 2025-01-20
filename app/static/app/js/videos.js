@@ -1,4 +1,3 @@
-
 // from: https://docs.djangoproject.com/en/5.1/howto/csrf/
 function getCookie(name) {
     let cookieValue = null;

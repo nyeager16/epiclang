@@ -22,16 +22,13 @@
                     frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
             </iframe>
         </div>
-        <!-- Buttons -->
         <div class="action-buttons">
-            <!-- Form for "I've Watched This" -->
             <form method="post" action="">
                 {% csrf_token %}
                 <input type="hidden" name="action" value="watched">
                 <input type="hidden" name="video_id" value="{{ video.id }}">
                 <button type="submit">I've Watched This</button>
             </form>
-            <!-- Form for "Next in Queue" -->
             <form method="post" action="">
                 {% csrf_token %}
                 <input type="hidden" name="action" value="next">

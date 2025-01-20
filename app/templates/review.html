@@ -16,13 +16,9 @@
     {% endblock %}
     <div class="container">
         <div class="content">
-            <!-- Word Display -->
             <div class="word-display" id="wordDisplay">{{ words.0.word.word_text }}</div>
-            <!-- Answer Display -->
             <div class="answer" id="answerDisplay">{{ definitions.0 }}</div>
-            <!-- Show Answer Button -->
             <button id="showAnswerBtn" class="show-answer-btn">Show Answer (Space)</button>
-            <!-- Rating Buttons -->
             <div class="ratings-container" id="ratingsContainer">
                 <button class="rating-btn" data-rating="0">Again (1)</button>
                 <button class="rating-btn" data-rating="1">Hard (2)</button>
@@ -30,19 +26,14 @@
                 <button class="rating-btn" data-rating="3">Easy (4)</button>
             </div>
             <div class="button-container">
-                <!-- Edit Flashcard Button -->
                 <button id="editFlashcardBtn" class="delete-btn" style="display: none;">Edit</button>
-                <!-- Save Changes Button -->
                 <button id="saveChangesBtn" class="delete-btn" style="display: none;">Save Changes</button>
-
-                <!-- Delete Flashcard -->
                 {% if words_data %}
                     <form method="POST" action="{% url 'change_review' words_data.0.id 'false' %}" id="deleteFlashcardForm">
                         {% csrf_token %}
                         <button id="deleteFlashcardBtn" class="delete-btn">Delete</button>
                     </form>
                 {% endif %}
-
             </div>
         </div>
     </div>

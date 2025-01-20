@@ -13,22 +13,16 @@
     {% block sidebar %}
     {% include 'sidebar.html' %}
     {% endblock %}
-    <!-- Learn Content -->
     <div class="word-sections">
         {% if new_words %}
             {% for word in new_words %}
                 <div class="word-section" id="section-{{ forloop.counter }}">
-                    <!-- Display the word at the top -->
                     <span>{{ word.root_word }}</span>
-                    
-                    <!-- 'I know this' button -->
                     <form method="post">
                         {% csrf_token %}
                         <input type="hidden" name="word_id" value="{{ word.root_word }}">
                         <button type="submit">I know this</button>
                     </form>
-
-                    <!-- 'Learn' button redirects to learn/{word} -->
                     <button class="learn-button" onclick="window.location.href='{% url 'learn_word' word.root_word %}'">
                         Learn
                     </button>
