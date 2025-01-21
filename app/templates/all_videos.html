@@ -17,12 +17,14 @@
     {% include 'sidebar.html' %}
     {% endblock %}
     <div class="content">
-        <form id="filter-form">
-            <div id="range-slider"></div>
-            <input type="hidden" name="min_comprehension" id="min-comprehension" value="{{ min_comprehension|default:0 }}">
-            <input type="hidden" name="max_comprehension" id="max-comprehension" value="{{ max_comprehension|default:100 }}">
-            <button type="submit">Apply Filter</button>
-        </form>
+        {% if user.is_authenticated %}
+            <form id="filter-form">
+                <div id="range-slider"></div>
+                <input type="hidden" name="min_comprehension" id="min-comprehension" value="{{ min_comprehension|default:0 }}">
+                <input type="hidden" name="max_comprehension" id="max-comprehension" value="{{ max_comprehension|default:100 }}">
+                <button type="submit">Apply Filter</button>
+            </form>
+        {% endif %}
         <div class="video-grid" id="video-grid">
             {% for video in videos %}
             <div class="video-item">
