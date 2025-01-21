@@ -21,6 +21,8 @@ def all_videos(request):
     selected_language = None
     comprehension_level_min = 0
     comprehension_level_max = 100
+    message = "Log in to use this feature"
+    if user: message = "Apply Filter"
     
     # Get user preferences if the user is authenticated
     if user:
@@ -65,6 +67,7 @@ def all_videos(request):
         'selected_language': selected_language,
         'min_comprehension': comprehension_level_min,
         'max_comprehension': comprehension_level_max,
+        'message': message,
     })
 
 def update_queue_ci(request):
