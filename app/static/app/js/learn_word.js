@@ -8,8 +8,11 @@ function onPlayerReady(event) {
 
 // Function to initialize YouTube player when API is ready
 function onYouTubeIframeAPIReady() {
+    if (player) {
+        player.destroy();
+    }
+
     if (!document.getElementById('player')) {
-        console.error("YouTube iframe element not found.");
         return;
     }
 
@@ -29,6 +32,8 @@ function loadYouTubeAPI() {
         script.onload = function () {
             console.log("YouTube API script loaded.");
         };
+    } else {
+        onYouTubeIframeAPIReady();
     }
 }
 
@@ -69,4 +74,8 @@ function updateButtonLabel() {
 document.addEventListener('DOMContentLoaded', function () {
     loadYouTubeAPI();
     updateButtonLabel();
+
+    document.querySelector('.nav-button:nth-child(1)').onclick = previousTimestamp;
+    document.querySelector('.nav-button:nth-child(2)').onclick = skipToCurrent;
+    document.querySelector('.nav-button:nth-child(3)').onclick = nextTimestamp;
 });
