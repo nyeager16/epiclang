@@ -229,7 +229,7 @@ def review(request):
     words_to_review = UserWord.objects.filter(user=user, needs_review=True, next_review__lte=now())
     
     if not words_to_review.exists():
-        message = "No words to review at the moment."
+        message = "No Words to Review."
         words_data = []
         definitions = []
     else:
