@@ -20,7 +20,7 @@
                     <span>{{ word.root_word }}</span>
                     <form method="post">
                         {% csrf_token %}
-                        <input type="hidden" name="word_id" value="{{ word.root_word }}">
+                        <input type="hidden" name="word_id" value="{{ word.root_word_id }}">
                         <button type="submit">I know this</button>
                     </form>
                     <button class="learn-button" onclick="window.location.href='{% url 'learn_word' word.root_word %}'">

@@ -15,8 +15,7 @@ def add_words(user, word_ids):
     add_definitions(undefined_word_ids, 'pl')
     for word_id in word_ids:
         word = Word.objects.filter(id=word_id).first()
-        userword = UserWord(user=user, word=word)
-        userword.save()
+        UserWord.objects.create(user=user, word=word)
 
 def get_video_data(videos, user=None, comprehension_level_min=0, comprehension_level_max=100):
     video_data = []

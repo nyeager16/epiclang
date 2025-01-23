@@ -163,22 +163,22 @@ class VideoDetailView(View):
             .annotate(
                 # For root words, use the word's text; for non-root words, use the root's text
                 root_word=Case(
-                    When(word__root__isnull=True, then=F('word__word_text')),  # If no root, use the word's text
-                    default=F('word__root__word_text'),  # Otherwise, use the root's text
+                    When(word__root__isnull=True, then=F('word__word_text')), # If no root, use the word's text
+                    default=F('word__root__word_text'), # Otherwise, use the root's text
                     output_field=models.CharField()
                 ),
                 root_word_id=Case(
-                    When(word__root__isnull=True, then=F('word__id')),  # If no root, use the word's own ID
-                    default=F('word__root__id'),  # Otherwise, use the root word's ID
+                    When(word__root__isnull=True, then=F('word__id')), # If no root, use the word's own ID
+                    default=F('word__root__id'), # Otherwise, use the root word's ID
                     output_field=models.IntegerField()
                 ),
             )
-            .values('root_word', 'root_word_id')  # Include root word's ID
+            .values('root_word', 'root_word_id') # Include root word's ID
             .annotate(
-                word_count=Count('id')  # Count occurrences
+                word_count=Count('id') # Count occurrences
             )
-            .order_by('-word_count')  # Sort by count, descending
-)
+            .order_by('-word_count') # Sort by count, descending
+        )
 
         # Get known words only if the user is logged in
         known_words = set()
@@ -331,8 +331,7 @@ def learn(request):
         user = request.user
         word_id = request.POST.get("word_id")
         if word_id:
-            word = Word.objects.filter(word_text=word_id).first()
-            UserWord.objects.create(user=request.user, word=word)
+            add_words(user, [word_id])
             calculate_video_CI(user.id)
             return redirect('learn')
 
@@ -346,16 +345,27 @@ def learn(request):
             UserPreferences(user=user, language=language).save()
         user_language = user_preferences.language if user_preferences else None
 
-    # Query to get the 10 most common root words in the user's preferred language
+    word_count = 20
+
     common_words = (
         WordInstance.objects
-        .filter(video__language=user_language)  # Filter by user's language preference
+        .filter(video__language=user_language)
         .annotate(
-            root_word=Coalesce('word__root__word_text', 'word__word_text')  # Use the root's text if it exists
+            # For root words, use the word's text; for non-root words, use the root's text
+            root_word=Case(
+                When(word__root__isnull=True, then=F('word__word_text')), # If no root, use the word's text
+                default=F('word__root__word_text'), # Otherwise, use the root's text
+                output_field=models.CharField()
+            ),
+            root_word_id=Case(
+                When(word__root__isnull=True, then=F('word__id')), # If no root, use the word's own ID
+                default=F('word__root__id'), # Otherwise, use the root word's ID
+                output_field=models.IntegerField()
+            ),
         )
-        .values('root_word')  # Group by the root word
-        .annotate(word_count=Count('id'))  # Count occurrences
-        .order_by('-word_count')  # Limit to the top 10
+        .values('root_word', 'root_word_id')
+        .annotate(word_count=Count('id')) # Count occurrences
+        .order_by('-word_count') # Sort by count, descending
     )
 
     # Get known words only if the user is logged in
@@ -365,7 +375,7 @@ def learn(request):
 
     # Filter new words that the user does not already know
     new_words = [word for word in common_words if word['root_word'] not in known_words]
-    new_words = new_words[:20]
+    new_words = new_words[:word_count]
 
     return render(request, 'learn.html', {'new_words': new_words})
 
