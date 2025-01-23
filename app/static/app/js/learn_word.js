@@ -3,7 +3,7 @@ var currentIndex = 0;
 
 function onPlayerReady(event) {
     console.log("YouTube player is ready.");
-    updateButtonLabel(); // Ensure the button label is updated when the player is ready
+    updateButtonLabel();
 }
 
 // Function to initialize YouTube player when API is ready

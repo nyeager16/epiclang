@@ -29,7 +29,7 @@ def calculate_video_CI(user_id):
 
         user_video, created = UserVideo.objects.get_or_create(
             user=user, video=video,
-            defaults={'percentage': comprehension_percentage}  # Only set if it's created
+            defaults={'percentage': comprehension_percentage}
         )
         if not created:
             # If the record already existed, update the percentage
