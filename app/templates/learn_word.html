@@ -15,8 +15,8 @@
     {% endblock %}
     <div class="content">
         <iframe id="player" width="560" height="315"
-                src="https://www.youtube.com/embed/{{ video_data.url }}?enablejsapi=1"
-                frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            src="https://www.youtube.com/embed/{{ video_data.url }}?enablejsapi=1"
+            frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
         <div class="navigation-controls">
             <button class="nav-button" onclick="previousTimestamp()">⬅</button>
             <button class="nav-button" onclick="skipToCurrent()">Skip to "{{ currentWord }}"</button>
