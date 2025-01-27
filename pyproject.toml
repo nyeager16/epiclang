@@ -19,10 +19,13 @@ deep-translator = "^1.11.4"
 django4-background-tasks = "^1.2.10"
 torch = "^2.5.1"
 
-
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.3.3"
 pytest-django = "^4.9.0"
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "inputquest.settings"
+python_files = ["test_*.py"]
 
 [build-system]
 requires = ["poetry-core"]
